@@ -1,5 +1,7 @@
 # drf-yasg 사용법
 
+https://github.com/axnsan12/drf-yasg
+
 - 기본설정
 - 문서확인
 - `SWAGGER_SETTINGS`를 사용한 Authorization항목 재정의
