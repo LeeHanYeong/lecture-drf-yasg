@@ -1,0 +1,6 @@
+# Django
+django<2.3
+
+# DRF
+djangorestframework<4.0
+drf-yasg<2.0
