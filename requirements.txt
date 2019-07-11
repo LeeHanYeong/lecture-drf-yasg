@@ -1,5 +1,6 @@
 # Django
 django<2.3
+django-extensions<3.0
 
 # DRF
 djangorestframework<4.0
