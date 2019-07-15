@@ -1,14 +1,22 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Post, Comment
-from .serializers import PostSerializer, CommentSerializer
+from .serializers import PostSerializer, CommentSerializer, PostCreateSerializer
 
 
 class PostListCreateAPIView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+    )
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return PostSerializer
+        elif self.request.method == 'POST':
+            return PostCreateSerializer
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -36,7 +44,7 @@ class PostListCreateAPIView(APIView):
 
         # request.data에 데이터가 전달됨
         # 전달받은 데이터를 data키워드인수로 PostSerializer생성에 전달, serializer생성
-        serializer = PostSerializer(data=request.data)
+        serializer = PostCreateSerializer(data=request.data)
 
         # serializer.is_valid() 호출로 validation점검
         if serializer.is_valid():
